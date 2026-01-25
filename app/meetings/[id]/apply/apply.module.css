@@ -1,0 +1,47 @@
+.apply-body {
+  width: 500px;
+  height: 700px;
+  margin: 0 auto;
+}
+
+.apply-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.question-div {
+  h3 {
+    margin-block: 20px;
+    font-size: 16px;
+  }
+
+  textarea {
+    background-color: #fbfbfb;
+    border: 5px solid #c5baff;
+    border-radius: 20px;
+    width: 340px;
+    height: 120px;
+  }
+}
+
+.btn-div {
+  margin-top: 40px;
+  font-size: 16px;
+  font-weight: bold;
+
+  button {
+    width: 350px;
+    height: 60px;
+    border-radius: 25px;
+  }
+}
+
+.btn-apply {
+  background-color: #c5baff;
+  margin-bottom: 35px;
+}
+
+.btn-cancel {
+  background-color: #fbfbfb;
+  border: 5px solid #c5baff;
+}
