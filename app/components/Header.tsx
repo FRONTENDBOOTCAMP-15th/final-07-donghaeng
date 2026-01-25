@@ -1,9 +1,19 @@
+'use client';
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from './Header.module.css';
+import MobileSidebar from '../components/MobileSidebar';
+import { useState } from 'react';
 
 export default function Header() {
   const isLogin = true;
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  // 햄버거 버튼 클릭 핸들러
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
   return (
     <>
       <header className={styles[`header-wrapper`]}>
@@ -67,11 +77,12 @@ export default function Header() {
           <Link href="/notifications">
             <Image src="./icon/notification.svg" width={25} height={30} alt="알림 이미지" />
           </Link>
-          <button className={styles[`hamburger-btn`]}>
+          <button className={styles[`hamburger-btn`]} onClick={toggleSidebar}>
             <Image src="./icon/hamburger.svg" width={30} height={28} alt="메뉴" />
           </button>
         </div>
       </header>
+      <MobileSidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
     </>
   );
 }
