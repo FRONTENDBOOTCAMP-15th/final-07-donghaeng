@@ -65,6 +65,16 @@
     max-width: 860px;
   }
 
+  .apply-title {
+    font-size: 24px;
+  }
+
+  .question-div {
+    h3 {
+      font-size: 20px;
+    }
+  }
+
   .btn-div {
     display: flex;
     gap: 100px;
