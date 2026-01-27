@@ -23,11 +23,6 @@
   height: 535px;
   box-shadow: 0 4px 15px var(--c-lavender-200);
   border-radius: 25px;
-
-  figcaption {
-    font-family: var(--sub-font-bold);
-    color: var(--text-navy);
-  }
 }
 
 .profile-information {
@@ -66,17 +61,21 @@
       margin-right: 8px;
     }
   }
+  figcaption {
+    font-family: var(--sub-font-bold);
+    color: var(--text-lavender);
+  }
 }
 
 .profile-img-wrapper {
   position: relative;
-  margin-right: 40px;
+  margin-right: 20px;
 }
 
 .pencil-btn {
   position: absolute;
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 40px;
+  height: 40px;
   bottom: 5px;
   right: 0px;
   border-radius: 50%;
@@ -93,7 +92,15 @@
   }
 }
 
-.my-introduce {
+.user-info-mobile {
+  width: 100%;
+}
+
+.user-info-desktop {
+  display: none;
+}
+
+.my-introduce-mobile {
   font-size: 14px;
   width: 90%;
   max-width: 410px;
@@ -188,5 +195,105 @@
   .mypage-body {
     max-width: 850px;
     height: 1080px;
+  }
+
+  .profile-information-div {
+    width: 100%;
+    max-width: 850px;
+    height: 600px;
+  }
+
+  .user-info-desktop {
+    display: block;
+  }
+
+  .user-info-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .my-introduce-desktop {
+    width: 450px;
+    height: 110px;
+    border: 5px solid var(--border-lavender);
+    border-radius: 50px 50px 50px 0;
+    padding: 20px;
+    font-size: 18px;
+    color: var(--text-navy);
+    margin-top: 15px;
+  }
+
+  .user-info-mobile,
+  .my-introduce-mobile {
+    display: none;
+  }
+
+  .profile-information {
+    .profile-img {
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+    }
+    .nickname {
+      font-size: 24px;
+    }
+    .email {
+      font-size: 24px;
+    }
+    .etc {
+      font-size: 24px;
+    }
+
+    figure {
+      svg {
+        width: 54px;
+        height: 47px;
+        margin-right: 8px;
+      }
+    }
+
+    figcaption {
+      color: var(--text-lavender);
+      font-size: 24px;
+    }
+  }
+
+  .pencil-btn {
+    right: 20px;
+  }
+
+  .history-meetings {
+    width: 100%;
+    max-width: 710px;
+    height: 142px;
+
+    .meetings-text {
+      font-size: 24px;
+    }
+
+    .meetings-number {
+      font-size: 28px;
+    }
+
+    > span {
+      font-size: 50px;
+    }
+  }
+
+  .history-button {
+    font-size: 20px;
+    gap: 110px;
+    max-width: 630px;
+
+    a {
+      max-width: 260px;
+    }
+
+    button {
+      width: 260px;
+      height: 60px;
+    }
   }
 }
