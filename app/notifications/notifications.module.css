@@ -5,7 +5,7 @@
 
 .notifications-wrap {
   margin: 0 auto;
-  min-width: 320px;
+  min-width: 260px;
   max-width: 787px;
   min-height: 650px;
 }
@@ -38,7 +38,7 @@
 }
 
 .alert {
-  min-width: 320px;
+  min-width: 260px;
   display: flex;
   background-color: var(--bg-sky);
   margin: 20px auto;
