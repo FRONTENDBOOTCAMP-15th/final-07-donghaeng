@@ -1,22 +1,23 @@
 .map-body {
-  width: 500px;
+  position: relative;
+  width: 100%;
   height: 1084px;
 }
 
 .map {
-  position: absolute;
-  width: 500px;
-  height: 100%;
+  position: relative;
+  width: 100%;
+  min-width: 320px;
 }
 
 .metting-div {
-  position: fixed;
+  position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: #c4d9ff;
-  width: 500px;
-  height: 280px;
+  width: 100%;
+  min-height: 200px;
   bottom: 0;
   border: 5px solid #889cce;
   border-top-left-radius: 25px;
@@ -42,4 +43,12 @@
     font-size: 20px;
     font-weight: bold;
   }
+}
+
+.filter-div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  padding: 10px;
 }
