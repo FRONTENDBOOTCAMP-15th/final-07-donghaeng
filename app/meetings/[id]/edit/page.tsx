@@ -93,6 +93,8 @@ export default function Edit() {
                   </button>
                 </fieldset>
 
+                {/* #TODO 추가버튼을 누르면 모달창 뜨게 하기! */}
+
                 <fieldset className={style['gender-fieldset']}>
                   <label htmlFor="gender">성별</label>
                   <div>
