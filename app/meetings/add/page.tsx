@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import style from './create.module.css';
 import DefaultLayout from '@/app/components/DefaultLayout';
 
@@ -171,11 +172,12 @@ export default function Add() {
           </form>
           <br />
           <div className={style['btn-wrap']}>
+            {/* #TODO link 기능구현시 삭제예정*/}
             <button className={style['btn']} type="submit">
-              등록
+              <Link href="/meetings">등록</Link>
             </button>
             <button className={style['btn-2']} type="button">
-              취소
+              <Link href={'/meetings'}>취소</Link>
             </button>
           </div>
         </div>
