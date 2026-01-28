@@ -33,7 +33,7 @@ export default function Login() {
           refreshToken: userState.item.token?.refreshToken || '',
         },
       });
-      router.replace(redirect || '/');
+      router.push(redirect || '/');
     }
   }, [userState, router, redirect, setUser]);
 
