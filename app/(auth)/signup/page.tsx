@@ -35,6 +35,12 @@ export default function Signup() {
     gender: '',
   });
 
+  // 성공 상태
+  const [successMessages, setSuccessMessages] = useState({
+    email: '',
+    name: '',
+  });
+
   const router = useRouter();
   // 이메일 중복확인
   const checkEmailDuplicate = async () => {
@@ -50,29 +56,29 @@ export default function Signup() {
 
     try {
       // 이메일 중복확인 API 호출
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/email`, {
-        method: 'POST',
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/email?email=${encodeURIComponent(formData.email)}`, {
+        method: 'GET',
         headers: {
           'Content-Type': 'application/json',
           'Client-Id': process.env.NEXT_PUBLIC_CLIENT_ID!,
         },
-        body: JSON.stringify({ email: formData.email }),
       });
 
       const data = await res.json();
-      // 👇 응답 확인!
-      console.log('📧 이메일 중복확인 응답:', data);
+
+      console.log('이메일 중복확인 응답:', data);
       console.log('data.ok:', data.ok);
 
-      if (data.ok === 0) {
+      if (data.ok === 1) {
         // 사용 가능한 이메일
         setCheckStatus({ ...checkStatus, email: true });
         setErrors({ ...errors, email: '' });
-        alert('사용 가능한 이메일입니다.');
-      } else {
+        setSuccessMessages({ ...successMessages, email: '중복확인 완료' });
+      } else if (res.status === 409) {
         // 이미 사용중인 이메일
         setCheckStatus({ ...checkStatus, email: false });
         setErrors({ ...errors, email: '이미 존재하는 이메일입니다.' });
+        setSuccessMessages({ ...successMessages, email: '' });
       }
     } catch (error) {
       console.error(error);
@@ -93,24 +99,24 @@ export default function Signup() {
     }
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/name`, {
-        method: 'POST',
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/name?name=${encodeURIComponent(formData.name)}`, {
+        method: 'GET',
         headers: {
           'Content-Type': 'application/json',
           'Client-Id': process.env.NEXT_PUBLIC_CLIENT_ID!,
         },
-        body: JSON.stringify({ name: formData.name }),
       });
 
       const data = await res.json();
 
-      if (data.ok === 0) {
+      if (data.ok === 1) {
         setCheckStatus({ ...checkStatus, name: true });
         setErrors({ ...errors, name: '' });
-        alert('사용 가능한 닉네임입니다.');
-      } else {
+        setSuccessMessages({ ...successMessages, name: '중복확인 완료' });
+      } else if (res.status === 409) {
         setCheckStatus({ ...checkStatus, name: false });
         setErrors({ ...errors, name: '이미 존재하는 닉네임입니다.' });
+        setSuccessMessages({ ...successMessages, name: '' });
       }
     } catch (error) {
       console.error(error);
@@ -151,8 +157,8 @@ export default function Signup() {
     if (!formData.password) {
       newErrors.password = '비밀번호를 입력해주세요.';
       isValid = false;
-    } else if (formData.password.length < 4) {
-      newErrors.password = '비밀번호는 4글자 이상 입력해야 합니다.';
+    } else if (formData.password.length < 8) {
+      newErrors.password = '비밀번호는 8글자 이상 입력해야 합니다.';
       isValid = false;
     }
 
@@ -247,7 +253,7 @@ export default function Signup() {
           password: formData.password,
           name: formData.name,
           region: formData.region,
-          age: formData.age,
+          age: Number(formData.age),
           gender: formData.gender,
         }),
       });
@@ -297,6 +303,7 @@ export default function Signup() {
                     중복확인
                   </button>
                   {errors.email && <span className={`${style['field-message']} ${style['field-email']}`}>{errors.email}</span>}
+                  {successMessages.email && <span className={`${style['ok-message']} ${style['field-email']}`}>{successMessages.email}</span>}
                 </fieldset>
 
                 <fieldset className={style['password-fieldset']}>
@@ -345,6 +352,7 @@ export default function Signup() {
                     중복확인
                   </button>
                   {errors.name && <span className={`${style['field-message']} ${style['field-nickname']}`}>{errors.name}</span>}
+                  {successMessages.name && <span className={`${style['ok-message']} ${style['field-nickname']}`}>{successMessages.name}</span>}
                 </fieldset>
 
                 <fieldset className={style['region-fieldset']}>
@@ -392,10 +400,10 @@ export default function Signup() {
                       <div>
                         <select className={style['select']} name="age" value={formData.age} onChange={handleChange} id="age" required>
                           <option value="">선택</option>
-                          <option value="teen">10대</option>
-                          <option value="twenties">20대</option>
-                          <option value="thirties">30대</option>
-                          <option value="forties_plus">40대 이상</option>
+                          <option value="10">10대</option>
+                          <option value="20">20대</option>
+                          <option value="30">30대</option>
+                          <option value="40">40대 이상</option>
                         </select>
                       </div>
                       <svg className={style['svg-2']} width="18" height="12" viewBox="0 0 18 12" fill="none" xmlns="http://www.w3.org/2000/svg">
