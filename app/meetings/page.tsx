@@ -13,7 +13,27 @@ import Filter from '@/app/components/Filter';
 import { Meetings } from '@/types/meetings';
 
 export default function Meetinglist() {
-  const categories = ['전체', '운동', '사교', '인문학 / 책 / 글', '아웃도어 / 여행', '음악 / 악기', '업종 / 직무', '문화 / 공연 / 축제', '외국 / 언어', '게임 / 오락', '공예 / 만들기', '댄스 / 무용', '봉사활동', '사진 / 영상', '자기계발', '스포츠 관람', '반려동물', '요리 / 제조', '자동차 / 바이크'];
+  const categories = [
+    '전체',
+    '운동',
+    '요리 / 제조',
+    '문화 / 공연 / 축제',
+    '게임 / 오락',
+    '인문학 / 책 / 글',
+    '아웃도어 / 여행',
+    '사교',
+    '음악 / 악기',
+    '업종 / 직무',
+    '외국 / 언어',
+    '공예 / 만들기',
+    '댄스 / 무용',
+    '봉사활동',
+    '사진 / 영상',
+    '자기계발',
+    '스포츠 관람',
+    '반려동물',
+    '자동차 / 바이크',
+  ];
 
   const [selectedCategory, setSelectedCategory] = useState('전체');
   const [searchTerm, setSearchTerm] = useState('');
@@ -27,7 +47,11 @@ export default function Meetinglist() {
     const fetchMeetings = async () => {
       try {
         setLoading(true);
-        const response = await fetch('/products/');
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products`, {
+          headers: {
+            'Client-Id': process.env.NEXT_PUBLIC_CLIENT_ID || '',
+          },
+        });
 
         if (!response.ok) {
           throw new Error('데이터를 불러오는데 실패했습니다');
@@ -36,7 +60,6 @@ export default function Meetinglist() {
         const data = await response.json();
 
         // API 응답 구조에 맞게 데이터 매핑
-        // 예시: data.products 또는 data.data 등
         setMeetings(data.item || data);
       } catch (err) {
         setError(err instanceof Error ? err.message : '알 수 없는 오류가 발생했습니다');
@@ -160,31 +183,44 @@ export default function Meetinglist() {
                 </div>
 
                 <ul className={style.meetingGrid}>
-                  {meetings.map((meeting) => (
-                    <li key={meeting._id} className={style.card}>
-                      <Link href={`/meetings/${meeting._id}`}>
-                        <figure className={style.meetingCard}>
-                          <div className={style.cardImage}></div>
-                          <figcaption className={style.cardContent}>
-                            <div className={style.cardHeader}>
-                              <h3 className={style.cardTitle}>{meeting.title}</h3>
-                              <div className={style.bookmarkIcon}>
-                                <BookmarkButton />
+                  {meetings.length > 0 ? (
+                    meetings.map((meeting) => (
+                      <li key={meeting._id} className={style.card}>
+                        <Link href={`/meetings/${meeting._id}`}>
+                          <figure className={style.meetingCard}>
+                            <div
+                              className={style.cardImage}
+                              style={{
+                                backgroundImage: meeting.mainImages?.[0]?.path ? `url(${meeting.mainImages[0].path})` : 'none',
+                                backgroundSize: 'cover',
+                                backgroundPosition: 'center',
+                              }}
+                            ></div>
+                            <figcaption className={style.cardContent}>
+                              <div className={style.cardHeader}>
+                                <h3 className={style.cardTitle}>{meeting.name}</h3>
+                                <div className={style.bookmarkIcon}>
+                                  <BookmarkButton />
+                                </div>
                               </div>
-                            </div>
-                            <div className={style.cardMetadata}>
-                              <p className={style.metadataLine}>
-                                {meeting.location}. {meeting.date}
-                              </p>
-                              <p className={style.metadataLine}>
-                                {meeting.gender}. {meeting.age}
-                              </p>
-                            </div>
-                          </figcaption>
-                        </figure>
-                      </Link>
+                              <div className={style.cardMetadata}>
+                                <p className={style.metadataLine}>
+                                  {meeting.extra.region}. {formatDate(meeting.extra.date)}
+                                </p>
+                                <p className={style.metadataLine}>
+                                  {getGenderText(meeting.extra.gender)}. {getAgeText(meeting.extra.age)}
+                                </p>
+                              </div>
+                            </figcaption>
+                          </figure>
+                        </Link>
+                      </li>
+                    ))
+                  ) : (
+                    <li className={style.emptyState}>
+                      <p>등록된 모임이 없습니다.</p>
                     </li>
-                  ))}
+                  )}
                 </ul>
               </div>
             </section>
