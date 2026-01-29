@@ -14,7 +14,7 @@ import BookmarkButton from '@/app/components/BookmarkButton';
 import Filter from '@/app/components/Filter';
 
 export default function Meetinglist() {
-  const categories = ['전체', '운동', '사교', '인문학/책/글', '아웃도어/여행', '음악/악기', '업종/직무', '문화/공연/축제', '외국/언어', '게임/오락', '공예/만들기', '댄스/무용', '봉사활동', '사진/영상', '자기계발', '스포츠 관람', '반려동물', '요리/제조', '자동차/바이크'];
+  const categories = ['전체', '운동', '요리 / 제조', '문화 / 공연 / 축제', '게임 / 오락', '사교', '인문학 / 책 / 글', '아웃도어 / 여행', '음악 / 악기', '업종 / 직무', '외국 / 언어', '공예 / 만들기', '댄스 / 무용', '봉사활동', '사진 / 영상', '자기계발', '스포츠 관람', '반려동물', '자동차 / 바이크'];
 
   const [selectedCategory, setSelectedCategory] = useState('전체');
   const [searchTerm, setSearchTerm] = useState('');
