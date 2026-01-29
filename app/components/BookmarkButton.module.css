@@ -18,10 +18,3 @@
 .bookmark-icon.active {
   fill: var(--bg-lavender);
 }
-
-@media (min-width: 1024px) {
-  .bookmark-icon {
-    width: 23px;
-    height: 29px;
-  }
-}
