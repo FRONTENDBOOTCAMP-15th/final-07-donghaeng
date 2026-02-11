@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 import { Meetings } from '@/types/meetings';
+import { getAiRecommendation } from '@/actions/ai-recommend';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -97,16 +98,11 @@ export default function AiRecommendModal({ open, onClose }: { open: boolean; onC
     setRecommendedMeetings([]);
   };
 
-  // AI 추천 API 호출
+  // AI 추천 Server Action 호출
   const fetchRecommendation = async (finalAnswers: typeof answers) => {
     setIsLoading(true);
     try {
-      const res = await fetch('/api/ai-recommend', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ answers: finalAnswers }),
-      });
-      const data = await res.json();
+      const data = await getAiRecommendation(finalAnswers);
       setRecommendedMeetings(data.meetings || []);
     } catch (error) {
       console.error('AI 추천 요청 실패:', error);
@@ -138,11 +134,11 @@ export default function AiRecommendModal({ open, onClose }: { open: boolean; onC
           <div className={styles[`btn-wrapper`]}>
             {step !== 'intro' && step !== 'result' && (
               <button className={styles[`back-btn`]} type="button" onClick={goBack} aria-label="뒤로가기">
-                <Image src="/icon/left.svg" alt="" width={11} height={20} />
+                <Image src="/icon/left.svg" alt="뒤로가기" width={11} height={20} />
               </button>
             )}
             <button className={styles[`close-btn`]} type="button" onClick={handleClose} aria-label="닫기">
-              <Image src="/icon/close.svg" alt="" width={20} height={20} />
+              <Image src="/icon/close.svg" alt="닫기" width={20} height={20} />
             </button>
           </div>
 
@@ -260,7 +256,7 @@ export default function AiRecommendModal({ open, onClose }: { open: boolean; onC
           {/* Step: result */}
           {step === 'result' && (
             <>
-              <div className={styles[`mobile-recommend-wrapper`]}>
+              <div className={styles[`mobile-recommend-wrapper`]} aria-live="polite">
                 {isLoading ? (
                   <p>AI가 모임을 추천하고 있어요...</p>
                 ) : (
@@ -281,7 +277,7 @@ export default function AiRecommendModal({ open, onClose }: { open: boolean; onC
                   </div>
                 ))}
               </div>
-              <div className={styles[`desktop-recommend-wrapper`]}>
+              <div className={styles[`desktop-recommend-wrapper`]} aria-live="polite">
                 {isLoading ? (
                   <p>AI가 모임을 추천하고 있어요...</p>
                 ) : (

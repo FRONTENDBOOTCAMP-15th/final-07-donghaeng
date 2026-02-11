@@ -1,8 +1,9 @@
+/* 모임 등록 */
 .wrap {
   padding: 25px clamp(10px, 7vw, 75px);
   overflow-x: hidden;
 }
-.Edit-wrap {
+.add-wrap {
   display: flexbox;
   justify-content: center;
   margin: 0 auto;
@@ -67,7 +68,6 @@
   padding: 0 20px;
   font-family: var(--sub-font-medium);
   font-size: 14px;
-  cursor: pointer;
 }
 
 .category-select {
@@ -138,6 +138,7 @@
 .btn {
   background-color: var(--bg-lavender) !important;
   display: inline-block;
+  cursor: pointer;
 }
 
 .field-parent-wrap {
@@ -162,14 +163,12 @@
 }
 
 .region-fieldset label {
-  /* margin-top: 10px; */
   display: flex;
   align-items: center;
 }
 
 .region-input {
   width: 100%;
-  /* max-width: 864px; */
   font-size: 14px;
   height: 45px;
   font-family: var(--sub-font-medium);
@@ -179,7 +178,6 @@
 .region-fieldset label {
   width: 30px;
   line-height: 20px;
-  /* font-size: 3.2vw; */
 }
 
 .age-fieldset {
@@ -245,7 +243,6 @@
 
 .date-input {
   width: 100%;
-  /* min-width: 290px; */
   max-width: 864px;
   font-size: 14px;
   height: 45px;
@@ -317,7 +314,6 @@
   font-family: var(--sub-font-medium);
   text-align: center;
   padding: 5px;
-  cursor: pointer;
 }
 
 .btn-2 {
@@ -327,9 +323,11 @@
   border-radius: 25px;
   border: 5px solid var(--border-lavender);
   font-family: var(--sub-font-bold);
-  text-align: center;
   padding: 5px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .btn-wrap {
@@ -349,7 +347,7 @@
   .wrap {
     padding: 25px 75px;
   }
-  .Edit-wrap {
+  .add-wrap {
     margin: 35px auto;
   }
 
